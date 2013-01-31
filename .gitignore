@@ -1,5 +1,8 @@
 *.py[cod]
 
+# Blender
+*.blend[12]
+
 # C extensions
 *.so
 
