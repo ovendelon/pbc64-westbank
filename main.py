@@ -4,9 +4,10 @@ import math , random
 
 class Game:
 	scene = logic.getCurrentScene()
-	player = scene.objectsInactive[ "proto_character_armature" ]
 	camera = scene.objects[ "Camera" ]
 	scene.active_camera = camera
+	logic.LibLoad( "//scene-lib/characters.blend" , "Scene" , load_actions=True )
+	
 	game_master = scene.objects["game_master"]
 	kbd = game_master.sensors[ "Keyboard" ]
 	
@@ -40,7 +41,7 @@ class Enemy:
 		SHOOT = 2
 		DIE = 3
 
-	enm = Game.scene.objectsInactive[ "proto_character_armature" ]
+	enm = Game.scene.objectsInactive[ "cowboy_armature" ]
 	actions = [ Anim( "idle" , 1 , 120 ) , Anim( "draw" , 1 , 15 ) , Anim( "shoot" , 1 , 60 ) , Anim( "die" , 1 , 30 ) ]
 	
 	def __del__( self ):
@@ -61,6 +62,7 @@ class Enemy:
 		action = Enemy.actions[ state ]
 		self.character.playAction( action.action , action.start , action.end )
 		self.active_state = state
+		print( "play %s" % state )
 		
 	def PlayFinished( self ):
 		return not self.character.isPlayingAction()
